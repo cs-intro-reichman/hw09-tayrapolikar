@@ -29,8 +29,8 @@ public class List {
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
-        CharData newData = new CharData(chr);
-        Node newNode = new Node(newData);
+        CharData cp = new CharData(chr);
+        Node newNode = new Node(cp);
         newNode.next = first;
         first = newNode;
         size++;
@@ -54,7 +54,7 @@ public class List {
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
-    public int indexOf(char chr) { //lecture 8-2
+    public int indexOf(char chr) {
         Node current = first;
         int index = 0;
         while (current != null) {
