@@ -54,7 +54,7 @@ public class List {
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
-    public int indexOf(char chr) {
+    public int indexOf(char chr) { //lecture 8-2
         Node current = first;
         int index = 0;
         while (current != null) {
