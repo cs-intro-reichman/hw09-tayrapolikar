@@ -117,7 +117,7 @@ public class LanguageModel {
      * @param numberOfLetters - the size of text to generate
      * @return the generated text
      */
-    public String generate(String initialText, int textLength) { //??
+    public String generate(String initialText, int textLength) {
         String window = "";
         String mytext = initialText;
         char chr;
