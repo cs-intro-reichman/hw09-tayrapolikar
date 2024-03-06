@@ -63,13 +63,18 @@ public class LanguageModel {
             lastData.cp = 1.0;
         }
     }
-
-
-
+    
     // Returns a random character from the given probabilities list.
     public char getRandomChar(List probs) {
-        // Your code goes here
-        return 0;
+        double r = Math.random();
+
+        for (int i = 0; i < probs.getSize(); i++) {
+            CharData data = probs.get(i);
+            if (r < data.cp) {
+                return data.chr;
+            }
+        }
+        return probs.get(probs.getSize() - 1).chr;
     }
 
     /*
@@ -98,3 +103,4 @@ public class LanguageModel {
 
     }
 }
+
