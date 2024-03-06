@@ -1,20 +1,21 @@
 import java.util.HashMap;
 import java.util.Random;
 
+
 public class LanguageModel {
 
     // The map of this model.
     // Maps windows to lists of charachter data objects.
     HashMap<String, List> CharDataMap;
-    
+
     // The window length used in this model.
     int windowLength;
-    
-    // The random number generator used by this model. 
-	private Random randomGenerator;
+
+    // The random number generator used by this model.
+    private Random randomGenerator;
 
     /** Constructs a language model with the given window length and a given
-     *  seed value. Generating texts from this model multiple times with the 
+     *  seed value. Generating texts from this model multiple times with the
      *  same seed value will produce the same random texts. Good for debugging. */
     public LanguageModel(int windowLength, int seed) {
         this.windowLength = windowLength;
@@ -32,43 +33,68 @@ public class LanguageModel {
     }
 
     /** Builds a language model from the text in the given file (the corpus). */
-	public void train(String fileName) {
-		// Your code goes here
-	}
+    public void train(String fileName) {
+        // Your code goes here
+    }
 
     // Computes and sets the probabilities (p and cp fields) of all the
-	// characters in the given list. */
-	public void calculateProbabilities(List probs) {				
-		// Your code goes here
-	}
+    // characters in the given list. */
+    public void calculateProbabilities(List probs) { //??
+        int totalCountOfChar = 0;
+
+        for (int i = 0; i < probs.getSize(); i++) {
+            CharData data = probs.get(i);
+            totalCountOfChar += data.count;
+        }
+
+        double cumulativeProb = 0.0;
+
+        for (int i = 0; i < probs.getSize(); i++) {
+            CharData data = probs.get(i);
+            double probability = (double) data.count / totalCountOfChar;
+            data.p = probability;
+
+            cumulativeProb += probability;
+            data.cp = cumulativeProb;
+        }
+
+        if (probs.getSize() > 0) {
+            CharData lastData = probs.get(probs.getSize() - 1);
+            lastData.cp = 1.0;
+        }
+    }
+
+
 
     // Returns a random character from the given probabilities list.
-	public char getRandomChar(List probs) {
-		// Your code goes here
-	}
+    public char getRandomChar(List probs) {
+        // Your code goes here
+        return 0;
+    }
 
-    /**
-	 * Generates a random text, based on the probabilities that were learned during training. 
-	 * @param initialText - text to start with. If initialText's last substring of size numberOfLetters
-	 * doesn't appear as a key in Map, we generate no text and return only the initial text. 
-	 * @param numberOfLetters - the size of text to generate
-	 * @return the generated text
-	 */
-	public String generate(String initialText, int textLength) {
-		// Your code goes here
-	}
+    /*
+     * Generates a random text, based on the probabilities that were learned during training.
+     * @param initialText - text to start with. If initialText's last substring of size numberOfLetters
+     * doesn't appear as a key in Map, we generate no text and return only the initial text.
+     * @param numberOfLetters - the size of text to generate
+     * @return the generated text
+     */
+    public String generate(String initialText, int textLength) {
+        // Your code goes here
+        return initialText;
+    }
 
     /** Returns a string representing the map of this language model. */
-	public String toString() {
-		StringBuilder str = new StringBuilder();
-		for (String key : CharDataMap.keySet()) {
-			List keyProbs = CharDataMap.get(key);
-			str.append(key + " : " + keyProbs + "\n");
-		}
-		return str.toString();
-	}
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (String key : CharDataMap.keySet()) {
+            List keyProbs = CharDataMap.get(key);
+            str.append(key + " : " + keyProbs + "\n");
+        }
+        return str.toString();
+    }
 
     public static void main(String[] args) {
-		// Your code goes here
+
     }
 }
